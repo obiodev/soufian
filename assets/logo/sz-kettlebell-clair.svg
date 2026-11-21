@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 130" role="img" aria-label="Soufiane Zalik">
+  <path d="M33 62V36A27 27 0 0 1 87 36V62" fill="none" stroke="#0a0a0b" stroke-width="12"/>
+  <circle cx="60" cy="82" r="42" fill="#0a0a0b"/>
+  <rect x="30" y="114" width="60" height="10" rx="4" fill="#0a0a0b"/>
+  <g transform="translate(37 64) scale(.62) skewX(-10)" fill="#d4ff3a"><path d="M0 0H40V12H12V22H40V56H0V44H28V34H0Z"/><path transform="translate(48 0)" d="M0 0H40V12L15 44H40V56H0V44L25 12H0Z"/></g>
+</svg>

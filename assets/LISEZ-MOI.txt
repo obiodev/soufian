@@ -1,0 +1,84 @@
+SITE SOUFIANE ZALIK — MODE D'EMPLOI
+====================================
+
+Fichiers du site
+----------------
+- index.html   → page d'accueil (réservation de séances)
+- app.html     → page « L'app — Bientôt disponible » (liste d'attente)
+- styles.css   → tout le design (couleurs, typographies, animations)
+- script.js    → le fonctionnement + la CONFIGURATION (en haut du fichier)
+- assets/photos/ → les photos
+
+Le site est 100 % statique : il suffit de déposer ces fichiers sur n'importe
+quel hébergeur (Netlify, Vercel, GitHub Pages, OVH, Hostinger…).
+
+
+1) MODIFIER LES INFOS : l'objet CONFIG (début de script.js)
+------------------------------------------------------------
+Ouvre script.js avec un éditeur de texte et modifie seulement ce qui est
+entre guillemets. Garde les virgules et les crochets.
+
+- whatsapp      : numéro au format international, sans + ni espaces (212632740500)
+- formEndpoint  : optionnel. Crée un formulaire gratuit sur https://formspree.io,
+                  colle son adresse ici (ex. "https://formspree.io/f/abcd1234") :
+                  chaque réservation et inscription arrivera AUSSI par email.
+                  Laisse "" pour n'utiliser que WhatsApp.
+- socials       : tes réseaux. Pour en retirer un, supprime sa ligne.
+
+- offers        : les séances (cartes + étape 1 de la réservation).
+    title / desc / points : textes affichés
+    location : "domicile" ou "salle" pré-sélectionne le lieu ; null = au choix
+    price    : laisse "" pour afficher « Tarif sur demande », ou écris "350 MAD"
+    duration : laisse "" pour cacher, ou écris "60 min"
+    featured : true met la carte en avant (une seule de préférence)
+
+- availability  : TES DISPONIBILITÉS dans le calendrier de réservation
+    daysAhead      : nombre de jours proposés (21 = 3 semaines)
+    minNoticeHours : délai minimum avant un créneau (3 = pas de réservation
+                     moins de 3 h à l'avance)
+    weekly         : créneaux par jour de la semaine
+                     0 = dimanche, 1 = lundi, 2 = mardi … 6 = samedi
+                     [] = jour fermé. Ex. 6: ["08:00", "09:30", "11:00"]
+    closedDates    : jours de congé, ex. ["2026-12-31", "2027-01-01"]
+    extraDates     : un jour avec des horaires spéciaux (remplace la semaine),
+                     ex. { "2026-12-06": ["09:00", "10:30"] }
+  Les créneaux passés ou trop proches sont grisés automatiquement.
+
+- cities / goals / levels : listes proposées dans le formulaire.
+
+- gallery       : les photos du carrousel « En images »
+    src     : chemin de la photo
+    w / h   : largeur / hauteur réelles de la photo en pixels
+    pos     : cadrage ("50% 30%" = centre horizontal, 30 % depuis le haut)
+    tag / title / caption : textes affichés
+    url     : lien du post Instagram
+    alt     : description de la photo (accessibilité, Google)
+
+
+2) CHANGER UNE PHOTO
+--------------------
+a. Dépose la nouvelle photo dans assets/photos/ (JPG, idéalement < 300 Ko,
+   format vertical, au moins 720 px de large si possible — compresse-la sur
+   https://squoosh.app).
+b. Carrousel : ajoute ou modifie une ligne dans CONFIG.gallery (script.js).
+c. Autres photos (hero, cartes, portrait…) : dans index.html, cherche le nom
+   de l'ancienne photo (ex. p02-aug06.jpg) et remplace-le. Mets à jour aussi
+   width="…" height="…" et le texte alt="…".
+d. Cadrage : ajuste "object-position" dans styles.css (ou "pos" pour le
+   carrousel) si le visage est coupé.
+
+Photos actuellement utilisées : p01, p02, p04, p05, p06, p07, p08, p09.
+Volontairement NON utilisées :
+- p03 (enseigne d'une salle visible sur le mur),
+- p11 (texte « Breakup / Gym » incrusté),
+- p12 (le texte arabe incrusté chevauche le visage : impossible à recadrer
+  proprement). Une version sans texte serait parfaite pour la section Parcours.
+
+Les photos actuelles sont petites (360×640). Des originaux en meilleure
+résolution rendront le site encore plus net, surtout sur ordinateur.
+
+
+3) TEXTES
+---------
+Tous les autres textes sont directement dans index.html et app.html.
+Cherche la phrase à modifier (Ctrl+F) et remplace-la.

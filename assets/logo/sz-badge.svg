@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Soufiane Zalik">
+  <rect width="120" height="120" rx="28" fill="#d4ff3a"/>
+  <g fill="#0a0a0b">
+    <rect x="10" y="30" width="16" height="6" rx="3"/><rect x="16" y="44" width="10" height="6" rx="3"/><rect x="8" y="58" width="18" height="6" rx="3"/>
+    <g transform="translate(34 22) scale(.78) skewX(-10)"><path d="M0 0H40V12H12V22H40V56H0V44H28V34H0Z"/><path transform="translate(48 0)" d="M0 0H40V12L15 44H40V56H0V44L25 12H0Z"/></g>
+    <rect x="40" y="90" width="40" height="4" rx="2"/>
+    <rect x="32" y="82" width="7" height="20" rx="2"/><rect x="81" y="82" width="7" height="20" rx="2"/>
+    <rect x="26" y="86" width="5" height="12" rx="2"/><rect x="89" y="86" width="5" height="12" rx="2"/>
+  </g>
+  <circle cx="106" cy="14" r="4" fill="#e2333d"/>
+</svg>

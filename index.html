@@ -80,7 +80,8 @@
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Préparation HYROX & hybride" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Boxe & cardio" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Coaching duo & petit groupe" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Séance découverte & bilan" } }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Séance découverte & bilan" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Formule entreprise — sport en entreprise" } }
           ]
         }
       }
@@ -105,7 +106,8 @@
     <symbol id="i-chev-r" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9 6 6 6-6 6"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3.5 10.5 12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/></symbol>
-    <symbol id="i-dumbbell" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M2.5 12h2M19.5 12h2M7 12h10M4.5 8.5v7M7 6.5v11M17 6.5v11M19.5 8.5v7"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3.5 21h17M5.5 21V4.5h9V21M14.5 9h4v12M8.5 8h3M8.5 11.5h3M8.5 15h3M10 21v-2.5"/></symbol>
+    <symbol id="i-dumbbell"viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M2.5 12h2M19.5 12h2M7 12h10M4.5 8.5v7M7 6.5v11M17 6.5v11M19.5 8.5v7"/></symbol>
     <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M13 2.5 4.5 13.5H11L10 21.5l8.5-11H12z"/></symbol>
     <symbol id="i-glove" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M7 21h9v-3.5c2-1 3.5-3 3.5-5.5V8a3 3 0 0 0-3-3h-1.5V4.5A1.5 1.5 0 0 0 13.5 3h-5A3.5 3.5 0 0 0 5 6.5V10a3 3 0 0 0 2 2.8V21zM15 5v4.5M5.2 9.5H11"/></symbol>
     <symbol id="i-users" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20c.6-3.4 3.200-5.500 6.5-5.500s5.9 2.100 6.5 5.500M16 4.3a3.5 3.5 0 0 1 0 6.400M18 14.800c1.900.7 3.200 2.500 3.500 5.200"/></symbol>
@@ -464,7 +466,7 @@
             <!-- STEP 2 -->
             <fieldset class="wz-step" data-step="2" hidden>
               <legend class="wz-step__title" tabindex="-1"><span class="mono">Étape 2/5</span>Où se déroule la séance&nbsp;?</legend>
-              <div class="choice-grid choice-grid--2">
+              <div class="choice-grid">
                 <label class="choice choice--lg">
                   <input type="radio" name="lieu" value="domicile" />
                   <span class="choice__box">
@@ -480,6 +482,15 @@
                     <svg class="choice__ico" aria-hidden="true"><use href="#i-dumbbell"/></svg>
                     <span class="choice__t">En salle</span>
                     <span class="choice__d">Matériel complet, lieu confirmé ensemble.</span>
+                    <span class="choice__tick" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
+                  </span>
+                </label>
+                <label class="choice choice--lg">
+                  <input type="radio" name="lieu" value="entreprise" />
+                  <span class="choice__box">
+                    <svg class="choice__ico" aria-hidden="true"><use href="#i-building"/></svg>
+                    <span class="choice__t">En entreprise</span>
+                    <span class="choice__d">Séances pour tes équipes, sur site.</span>
                     <span class="choice__tick" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
                   </span>
                 </label>
@@ -502,6 +513,21 @@
                 <div class="field field--full">
                   <label for="f-salle">Ta salle (facultatif)</label>
                   <input id="f-salle" name="salle" type="text" placeholder="Si tu as déjà une salle, indique-la. Sinon, on en parle ensemble." />
+                </div>
+              </div>
+              <div class="wz-sub" id="wzCompany" hidden>
+                <div class="field field--full">
+                  <label for="f-societe">Entreprise <span aria-hidden="true">*</span></label>
+                  <input id="f-societe" name="societe" type="text" autocomplete="organization" placeholder="Nom de l'entreprise" aria-describedby="err-societe" />
+                  <p class="wz-error" id="err-societe" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="f-effectif">Nombre de participants</label>
+                  <input id="f-effectif" name="effectif" type="number" min="1" inputmode="numeric" placeholder="Ex. 12" />
+                </div>
+                <div class="field">
+                  <label for="f-ville-ent">Ville</label>
+                  <input id="f-ville-ent" name="villeEnt" type="text" autocomplete="address-level2" placeholder="Ex. Casablanca" />
                 </div>
               </div>
             </fieldset>

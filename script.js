@@ -64,6 +64,13 @@ const CONFIG = {
       points: ["À 2 ou en petit groupe", "Programme commun adapté", "Motivation partagée"],
       location: null, price: "", duration: "",
     },
+    {
+      id: "entreprise", icon: "i-building", wide: true, badge: "Entreprises",
+      title: "Formule entreprise",
+      desc: "Des séances sport pour tes équipes, dans vos locaux ou en salle. Cohésion, énergie et bien-être au travail : un programme adapté au niveau et au planning de chacun.",
+      points: ["Séances collectives sur site", "Challenges d'équipe & team building", "Planning adapté à l'entreprise", "Devis selon le nombre de participants"],
+      location: "entreprise", price: "", duration: "",
+    },
   ],
 
   /* ---------- Booking availability ----------
@@ -281,7 +288,7 @@ if (finePointer && !reduceMotion) {
   const grid = $("#offersGrid");
   if (!grid) return;
   grid.innerHTML = CONFIG.offers.map((o, i) => `
-    <article class="offer${o.featured ? " offer--featured" : ""}" data-reveal>
+    <article class="offer${o.featured ? " offer--featured" : ""}${o.wide ? " offer--wide" : ""}" data-reveal>
       ${o.badge ? `<span class="offer__badge">${esc(o.badge)}</span>` : ""}
       <div class="offer__top">
         <span class="offer__ico" aria-hidden="true"><svg><use href="#${o.icon}"/></svg></span>
@@ -506,6 +513,7 @@ if (finePointer && !reduceMotion) {
     const v = form.lieu.value;
     $("#wzHome").hidden = v !== "domicile";
     $("#wzGym").hidden = v !== "salle";
+    $("#wzCompany").hidden = v !== "entreprise";
   };
   $$("input[name=lieu]", form).forEach((r) => r.addEventListener("change", () => { syncLieu(); setErr("lieu", ""); }));
   $$("input[name=type]", form).forEach((r) => r.addEventListener("change", () => {
@@ -617,7 +625,10 @@ if (finePointer && !reduceMotion) {
     const need = (cond, name, msg) => { if (!cond) { setErr(name, msg); errs.push(name); } else setErr(name, ""); };
     if (s === 1) need(form.type.value, "type", "Choisis un type de séance pour continuer.");
     if (s === 2) {
-      need(form.lieu.value, "lieu", "Indique si la séance a lieu à domicile ou en salle.");
+      need(form.lieu.value, "lieu", "Indique si la séance a lieu à domicile, en salle ou en entreprise.");
+      if (form.lieu.value === "entreprise") {
+        need(form.societe.value.trim().length >= 2, "societe", "Indique le nom de l'entreprise.");
+      }
       if (form.lieu.value === "domicile") {
         need(form.ville.value, "ville", "Choisis ta ville.");
         need(form.quartier.value.trim().length >= 2, "quartier", "Indique ton quartier.");
@@ -648,6 +659,10 @@ if (finePointer && !reduceMotion) {
     let lieuTxt = "";
     if (lieu === "domicile") lieuTxt = `À domicile — ${form.ville.value}${form.quartier.value.trim() ? ", " + form.quartier.value.trim() : ""}`;
     else if (lieu === "salle") lieuTxt = `En salle${form.salle.value.trim() ? " — " + form.salle.value.trim() : ""}`;
+    else if (lieu === "entreprise") {
+      const extra = [form.effectif.value.trim() && `${form.effectif.value.trim()} participants`, form.villeEnt.value.trim()].filter(Boolean).join(", ");
+      lieuTxt = `En entreprise — ${form.societe.value.trim()}${extra ? " (" + extra + ")" : ""}`;
+    }
     return {
       type: o?.title || "", lieu: lieuTxt, date: state.date ? fmtDateLong(state.date) : "", heure: state.time || "",
       nom: form.nom.value.trim(), telephone: form.tel.value.trim(), objectif: form.objectif.value,
@@ -655,21 +670,21 @@ if (finePointer && !reduceMotion) {
     };
   };
   const message = (d) => [
-    "Bonjour Soufiane 👋",
+    "Bonjour Soufiane,",
     "Je souhaite réserver une séance via ton site :",
     "",
-    `🏋️ *Séance :* ${d.type}`,
-    `📍 *Lieu :* ${d.lieu}`,
-    `📅 *Date :* ${d.date}`,
-    `⏰ *Heure :* ${d.heure}`,
+    `- *Séance :* ${d.type}`,
+    `- *Lieu :* ${d.lieu}`,
+    `- *Date :* ${d.date}`,
+    `- *Heure :* ${d.heure}`,
     "",
-    `👤 *Nom :* ${d.nom}`,
-    `📞 *Téléphone :* ${d.telephone}`,
-    d.objectif ? `🎯 *Objectif :* ${d.objectif}` : null,
-    d.niveau ? `📈 *Niveau :* ${d.niveau}` : null,
-    d.message ? `💬 *Message :* ${d.message}` : null,
+    `- *Nom :* ${d.nom}`,
+    `- *Téléphone :* ${d.telephone}`,
+    d.objectif ? `- *Objectif :* ${d.objectif}` : null,
+    d.niveau ? `- *Niveau :* ${d.niveau}` : null,
+    d.message ? `- *Message :* ${d.message}` : null,
     "",
-    "Merci de me confirmer la disponibilité 🙏",
+    "Peux-tu me confirmer la disponibilité ? Merci !",
   ].filter((l) => l !== null).join("\n");
 
   const renderRecap = () => {
@@ -687,7 +702,7 @@ if (finePointer && !reduceMotion) {
   function updateSummary() {
     const parts = [];
     const o = offerById(form.type.value); if (o) parts.push(o.title);
-    if (form.lieu.value) parts.push(form.lieu.value === "domicile" ? "À domicile" : "En salle");
+    if (form.lieu.value) parts.push({ domicile: "À domicile", salle: "En salle", entreprise: "En entreprise" }[form.lieu.value]);
     if (state.date) parts.push(fmtDateLong(state.date).split(" ").slice(0, 3).join(" ") + (state.time ? " · " + state.time : ""));
     summary.textContent = parts.join(" — ");
   }
@@ -781,7 +796,7 @@ if (finePointer && !reduceMotion) {
       const r = form.querySelector(`input[name=type][value="${offre}"]`);
       r.checked = true; r.dispatchEvent(new Event("change"));
     }
-    if (lieu === "domicile" || lieu === "salle") { form.querySelector(`input[name=lieu][value=${lieu}]`).checked = true; syncLieu(); }
+    if (lieu === "domicile" || lieu === "salle" || lieu === "entreprise") { form.querySelector(`input[name=lieu][value=${lieu}]`).checked = true; syncLieu(); }
     if (offre && offerById(offre)) { maxStep = Math.max(maxStep, 2); goTo(2, { focus: false }); }
   };
   document.addEventListener("click", (e) => {
@@ -868,12 +883,12 @@ if (finePointer && !reduceMotion) {
       if (!ok) { setStatus("Merci de compléter les champs obligatoires.", "error"); (name.length < 2 ? wl.prenom : wl.contact).focus(); return; }
       const profil = wl.profil.value;
       const msg = [
-        "Bonjour Soufiane 👋",
-        "Je veux rejoindre la liste d'attente de ton app 📱",
+        "Bonjour Soufiane,",
+        "Je veux rejoindre la liste d'attente de ton app.",
         "",
-        `👤 *Prénom :* ${name}`,
-        `📞 *Contact :* ${contact}`,
-        profil ? `🏷️ *Profil :* ${profil}` : null,
+        `- *Prénom :* ${name}`,
+        `- *Contact :* ${contact}`,
+        profil ? `- *Profil :* ${profil}` : null,
         "",
         "Préviens-moi dès qu'elle sort !",
       ].filter((l) => l !== null).join("\n");

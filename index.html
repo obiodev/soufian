@@ -2,28 +2,32 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://formspree.io; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Soufiane Zalik — Coach sportif à domicile & en salle · Casablanca</title>
-  <meta name="description" content="Réserve ta séance de coaching sportif avec Soufiane Zalik, HYROX Performance Coach : à domicile ou en salle, à Casablanca et sa région. Préparation HYROX, boxe, remise en forme, séance découverte." />
+  <title>Coach sportif à Casablanca — domicile, salle & entreprise | Soufiane Zalik</title>
+  <meta name="description" content="Coach sportif à Casablanca : coaching à domicile, en salle ou en entreprise avec Soufiane Zalik, HYROX Performance Coach. Préparation HYROX, boxe, remise en forme. Réserve en 1 minute." />
+  <link rel="canonical" href="https://obiodev.github.io/soufian/" />
   <meta name="author" content="Soufiane Zalik" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_MA" />
   <meta property="og:site_name" content="Soufiane Zalik — Coaching" />
   <meta property="og:title" content="Soufiane Zalik — Performe au-delà de tes limites" />
-  <meta property="og:description" content="Coaching sportif en présentiel, à domicile ou en salle — Casablanca & région. Réserve ta séance en 1 minute." />
-  <meta property="og:image" content="assets/photos/p02-aug06.jpg" />
+  <meta property="og:description" content="Coaching sportif à domicile, en salle ou en entreprise — Casablanca & région. Réserve ta séance en 1 minute." />
+  <meta property="og:url" content="https://obiodev.github.io/soufian/" />
+  <meta property="og:image" content="https://obiodev.github.io/soufian/assets/photos/p02-aug06.jpg" />
+  <meta property="og:image:alt" content="Soufiane Zalik pousse un sled en compétition HYROX" />
   <meta property="og:image:width" content="480" />
   <meta property="og:image:height" content="640" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#0a0a0b" />
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/svg+xml" href="assets/logo/sz-favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..900;1,62..125,700..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/archivo-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
   <link rel="preload" as="image" href="assets/photos/p02-aug06.jpg" fetchpriority="high" />
-  <link rel="stylesheet" href="styles.css?v=202611211853" />
+  <link rel="stylesheet" href="styles.css?v=202611211902" />
   <script>document.documentElement.classList.add("js");</script>
   <script type="application/ld+json">
   {
@@ -35,7 +39,8 @@
         "name": "Soufiane Zalik",
         "jobTitle": "Sports Performance Manager · HYROX Performance Coach",
         "description": "Coach sportif depuis 2020, HYROX Performance Coach et athlète HYROX. Coaching personnel à domicile et en salle à Casablanca.",
-        "image": "assets/photos/p02-aug06.jpg",
+        "image": "https://obiodev.github.io/soufian/assets/photos/p02-aug06.jpg",
+        "url": "https://obiodev.github.io/soufian/",
         "telephone": "+212632740500",
         "knowsAbout": ["HYROX", "Entraînement hybride", "Coaching personnel", "Boxe", "Kick-boxing", "BODYCOMBAT", "TRX", "Endurance"],
         "hasCredential": [
@@ -56,13 +61,17 @@
       {
         "@type": ["LocalBusiness", "SportsActivityLocation"],
         "name": "Soufiane Zalik — Coaching sportif",
-        "description": "Coaching sportif personnel à domicile et en salle : préparation HYROX & hybride, boxe & cardio, remise en forme, séance découverte.",
-        "image": "assets/photos/p02-aug06.jpg",
+        "description": "Coaching sportif à domicile, en salle et en entreprise à Casablanca : préparation HYROX & hybride, boxe & cardio, remise en forme, séance découverte.",
+        "image": "https://obiodev.github.io/soufian/assets/photos/p02-aug06.jpg",
+        "url": "https://obiodev.github.io/soufian/",
         "telephone": "+212632740500",
         "founder": { "@id": "#soufiane" },
         "address": { "@type": "PostalAddress", "addressLocality": "Casablanca", "addressRegion": "Casablanca-Settat", "addressCountry": "MA" },
         "areaServed": [
           { "@type": "City", "name": "Casablanca" },
+          { "@type": "City", "name": "Mohammedia" },
+          { "@type": "City", "name": "Bouskoura" },
+          { "@type": "City", "name": "Dar Bouazza" },
           { "@type": "AdministrativeArea", "name": "Casablanca-Settat" }
         ],
         "sameAs": [
@@ -180,15 +189,15 @@
         </figure>
 
         <div class="hero__side">
-          <p class="hero__lead" data-reveal>Coaching sportif <strong>à domicile</strong> ou <strong>en salle</strong>. Préparation HYROX, boxe, remise en forme&nbsp;: une méthode d'athlète, adaptée à toi.</p>
+          <p class="hero__lead" data-reveal>Coach sportif à Casablanca, <strong>à domicile</strong>, <strong>en salle</strong> ou <strong>en entreprise</strong>. Préparation HYROX, boxe, remise en forme&nbsp;: une méthode d'athlète, adaptée à toi.</p>
           <div class="hero__ctas" data-reveal>
             <a class="btn btn--volt btn--lg magnetic" href="#reserver">Réserver une séance <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-            <a class="btn btn--ghost btn--lg" href="https://wa.me/212632740500" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a>
+            <a class="btn btn--ghost btn--lg" href="https://wa.me/212632740500" target="_blank" rel="noopener noreferrer"><svg class="ico" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a>
           </div>
           <ul class="hero__facts" data-reveal>
             <li><b>2020</b><span>Coach depuis</span></li>
             <li><b>HYROX</b><span>Coach &amp; athlète</span></li>
-            <li><b>2</b><span>Formats&nbsp;: domicile / salle</span></li>
+            <li><b>3</b><span>Formats&nbsp;: domicile, salle, entreprise</span></li>
           </ul>
         </div>
       </div>
@@ -198,8 +207,8 @@
     <!-- ============ MARQUEE ============ -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
-        <span>À domicile</span><i>✦</i><span>En salle</span><i>✦</i><span>HYROX</span><i>✦</i><span>Boxe</span><i>✦</i><span>Hybride</span><i>✦</i><span>Casablanca</span><i>✦</i>
-        <span>À domicile</span><i>✦</i><span>En salle</span><i>✦</i><span>HYROX</span><i>✦</i><span>Boxe</span><i>✦</i><span>Hybride</span><i>✦</i><span>Casablanca</span><i>✦</i>
+        <span>À domicile</span><i>✦</i><span>En salle</span><i>✦</i><span>HYROX</span><i>✦</i><span>Boxe</span><i>✦</i><span>Hybride</span><i>✦</i><span>Entreprises</span><i>✦</i><span>Casablanca</span><i>✦</i>
+        <span>À domicile</span><i>✦</i><span>En salle</span><i>✦</i><span>HYROX</span><i>✦</i><span>Boxe</span><i>✦</i><span>Hybride</span><i>✦</i><span>Entreprises</span><i>✦</i><span>Casablanca</span><i>✦</i>
       </div>
     </div>
 
@@ -211,7 +220,7 @@
             <p class="eyebrow" data-reveal><span>&#9673;</span> En images</p>
             <h2 class="display-2" id="gallery-title" data-reveal>Le terrain,<br /><em>sans filtre.</em></h2>
           </div>
-          <p class="sec-head__aside" data-reveal>Compétitions, entraînements, endurance&nbsp;: chaque image renvoie au post Instagram d'origine. <a class="link-u" href="https://www.instagram.com/soufiane_zalik/" target="_blank" rel="noopener">@soufiane_zalik</a></p>
+          <p class="sec-head__aside" data-reveal>Compétitions, entraînements, endurance&nbsp;: chaque image renvoie au post Instagram d'origine. <a class="link-u" href="https://www.instagram.com/soufiane_zalik/" target="_blank" rel="noopener noreferrer">@soufiane_zalik</a></p>
         </header>
       </div>
       <div class="carousel" id="carousel" role="region" aria-roledescription="carrousel" aria-label="Photos de Soufiane Zalik">
@@ -287,7 +296,7 @@
             <p class="eyebrow" data-reveal><span>(02)</span> Les séances</p>
             <h2 class="display-2" id="offres-title" data-reveal>Choisis ton<br /><em>terrain de bataille.</em></h2>
           </div>
-          <p class="sec-head__aside" data-reveal>Chaque séance est individuelle, encadrée de bout en bout et construite autour de ton objectif. Tarifs communiqués sur demande, selon le format et la fréquence.</p>
+          <p class="sec-head__aside" data-reveal>Seul, à deux, en groupe ou avec ton équipe&nbsp;: chaque séance est encadrée de bout en bout et construite autour de ton objectif. Tarifs sur demande, selon le format et la fréquence.</p>
         </header>
         <div class="offres__grid" id="offersGrid">
           <noscript><p>Pour voir les séances et réserver, active JavaScript ou écris-moi directement sur <a href="https://wa.me/212632740500">WhatsApp</a>.</p></noscript>
@@ -371,7 +380,7 @@
           <article class="cell cell--ig" data-reveal>
             <p class="mono">Communauté Instagram</p>
             <p class="num"><span data-count="3.6" data-decimals="1">3,6</span><small>k</small></p>
-            <a class="cell__link" href="https://www.instagram.com/soufiane_zalik/" target="_blank" rel="noopener">@soufiane_zalik <svg class="ico" aria-hidden="true"><use href="#i-arrow-ne"/></svg></a>
+            <a class="cell__link" href="https://www.instagram.com/soufiane_zalik/" target="_blank" rel="noopener noreferrer">@soufiane_zalik <svg class="ico" aria-hidden="true"><use href="#i-arrow-ne"/></svg></a>
           </article>
         </div>
       </div>
@@ -505,20 +514,20 @@
                 </div>
                 <div class="field">
                   <label for="f-quartier">Quartier <span aria-hidden="true">*</span></label>
-                  <input id="f-quartier" name="quartier" type="text" autocomplete="address-level3" placeholder="Ex. Maârif, Anfa, Ain Diab…" aria-describedby="err-quartier" />
+                  <input id="f-quartier" name="quartier" type="text" autocomplete="address-level3" placeholder="Ex. Maârif, Anfa, Ain Diab…" aria-describedby="err-quartier" maxlength="80" />
                   <p class="wz-error" id="err-quartier" role="alert"></p>
                 </div>
               </div>
               <div class="wz-sub" id="wzGym" hidden>
                 <div class="field field--full">
                   <label for="f-salle">Ta salle (facultatif)</label>
-                  <input id="f-salle" name="salle" type="text" placeholder="Si tu as déjà une salle, indique-la. Sinon, on en parle ensemble." />
+                  <input id="f-salle" name="salle" type="text" placeholder="Si tu as déjà une salle, indique-la. Sinon, on en parle ensemble." maxlength="100" />
                 </div>
               </div>
               <div class="wz-sub" id="wzCompany" hidden>
                 <div class="field field--full">
                   <label for="f-societe">Entreprise <span aria-hidden="true">*</span></label>
-                  <input id="f-societe" name="societe" type="text" autocomplete="organization" placeholder="Nom de l'entreprise" aria-describedby="err-societe" />
+                  <input id="f-societe" name="societe" type="text" autocomplete="organization" placeholder="Nom de l'entreprise" aria-describedby="err-societe" maxlength="100" />
                   <p class="wz-error" id="err-societe" role="alert"></p>
                 </div>
                 <div class="field">
@@ -527,7 +536,7 @@
                 </div>
                 <div class="field">
                   <label for="f-ville-ent">Ville</label>
-                  <input id="f-ville-ent" name="villeEnt" type="text" autocomplete="address-level2" placeholder="Ex. Casablanca" />
+                  <input id="f-ville-ent" name="villeEnt" type="text" autocomplete="address-level2" placeholder="Ex. Casablanca" maxlength="60" />
                 </div>
               </div>
             </fieldset>
@@ -557,12 +566,12 @@
               <div class="fields">
                 <div class="field">
                   <label for="f-nom">Nom complet <span aria-hidden="true">*</span></label>
-                  <input id="f-nom" name="nom" type="text" autocomplete="name" required aria-required="true" aria-describedby="err-nom" />
+                  <input id="f-nom" name="nom" type="text" autocomplete="name" required aria-required="true" aria-describedby="err-nom" maxlength="80" />
                   <p class="wz-error" id="err-nom" role="alert"></p>
                 </div>
                 <div class="field">
                   <label for="f-tel">Téléphone / WhatsApp <span aria-hidden="true">*</span></label>
-                  <input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="06 XX XX XX XX" required aria-required="true" aria-describedby="err-tel" />
+                  <input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="06 XX XX XX XX" required aria-required="true" aria-describedby="err-tel" maxlength="25" />
                   <p class="wz-error" id="err-tel" role="alert"></p>
                 </div>
                 <div class="field">
@@ -575,7 +584,7 @@
                 </div>
                 <div class="field field--full">
                   <label for="f-msg">Message (facultatif)</label>
-                  <textarea id="f-msg" name="message" rows="3" placeholder="Blessure, contrainte horaire, question… dis-moi tout."></textarea>
+                  <textarea id="f-msg" name="message" rows="3" placeholder="Blessure, contrainte horaire, question… dis-moi tout." maxlength="1000"></textarea>
                 </div>
               </div>
             </fieldset>
@@ -585,6 +594,7 @@
               <legend class="wz-step__title" tabindex="-1"><span class="mono">Étape 5/5</span>Vérifie ta demande</legend>
               <dl class="recap" id="recap"></dl>
               <p class="recap__note">En confirmant, WhatsApp s'ouvre avec ton message pré-rempli. Il ne te reste qu'à appuyer sur <b>Envoyer</b>. Ta séance est confirmée dès ma réponse.</p>
+              <p class="recap__privacy">Tes informations servent uniquement à organiser ta séance. Le site ne les enregistre pas&nbsp;: elles sont transmises via WhatsApp quand tu envoies le message. <a class="link-u" href="mentions-legales.html#confidentialite">En savoir plus</a></p>
             </fieldset>
 
             <!-- DONE -->
@@ -593,7 +603,7 @@
               <h3>Demande prête&nbsp;!</h3>
               <p>WhatsApp s'est ouvert avec ton récapitulatif. Envoie le message et je te confirme ton créneau très vite.</p>
               <div class="wz-done__ctas">
-                <a class="btn btn--volt" id="wzWaAgain" href="https://wa.me/212632740500" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-whatsapp"/></svg>Rouvrir WhatsApp</a>
+                <a class="btn btn--volt" id="wzWaAgain" href="https://wa.me/212632740500" target="_blank" rel="noopener noreferrer"><svg class="ico" aria-hidden="true"><use href="#i-whatsapp"/></svg>Rouvrir WhatsApp</a>
                 <button class="btn btn--ghost" type="button" id="wzIcs"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg>Ajouter à mon agenda</button>
                 <button class="btn btn--link" type="button" id="wzRestart">Nouvelle réservation</button>
               </div>
@@ -667,7 +677,15 @@
           </details>
           <details class="qa" data-reveal>
             <summary>Quels sont les tarifs&nbsp;?<svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></summary>
-            <p>Les tarifs sont communiqués sur demande&nbsp;: ils dépendent du format (domicile, salle, duo), du lieu et de la fréquence. Écris-moi sur WhatsApp ou réserve directement.</p>
+            <p>Les tarifs sont communiqués sur demande&nbsp;: ils dépendent du format (domicile, salle, duo, entreprise), du lieu et de la fréquence. Écris-moi sur WhatsApp ou réserve directement.</p>
+          </details>
+          <details class="qa" data-reveal>
+            <summary>Tu interviens aussi en entreprise&nbsp;?<svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Oui. Je coache des équipes dans les locaux de l'entreprise ou en salle&nbsp;: séances collectives, challenges et team building. Choisis «&nbsp;Formule entreprise&nbsp;» dans la réservation, indique le nombre de participants et je te réponds avec un devis.</p>
+          </details>
+          <details class="qa" data-reveal>
+            <summary>Que deviennent mes informations&nbsp;?<svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Le site n'enregistre rien et n'utilise aucun cookie. Ta demande part directement sur WhatsApp et sert uniquement à organiser ta séance. Tous les détails sont dans la <a class="link-u" href="mentions-legales.html#confidentialite">politique de confidentialité</a>.</p>
           </details>
         </div>
       </div>
@@ -693,7 +711,7 @@
       <div class="footer__grid">
         <div class="footer__col">
           <p class="footer__tagline">Performe au-delà de tes limites.</p>
-          <p class="footer__muted">Coaching sportif en présentiel, à domicile ou en salle — Casablanca &amp; région, Maroc.</p>
+          <p class="footer__muted">Coaching sportif à domicile, en salle et en entreprise — Casablanca &amp; région, Maroc.</p>
         </div>
         <nav class="footer__col" aria-label="Pied de page">
           <p class="mono footer__k">Navigation</p>
@@ -709,13 +727,13 @@
           <p class="mono footer__k">Contact</p>
           <ul>
             <li><a href="tel:+212632740500">+212 632-740500</a></li>
-            <li><a href="https://wa.me/212632740500" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="https://wa.me/212632740500" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
           </ul>
           <div class="socials" data-socials></div>
         </div>
       </div>
       <div class="footer__bottom">
-        <p>© <span data-year>2026</span> Soufiane Zalik. Tous droits réservés.</p>
+        <p>© <span data-year>2026</span> Soufiane Zalik. Tous droits réservés. · <a href="mentions-legales.html">Mentions légales</a> · <a href="mentions-legales.html#confidentialite">Confidentialité</a> · <a href="mentions-legales.html#cookies">Cookies</a></p>
         <a href="#top" class="footer__top">Haut de page <svg class="ico" aria-hidden="true"><use href="#i-arrow-ne"/></svg></a>
       </div>
     </div>
@@ -725,10 +743,10 @@
   <div class="dock" id="dock">
     <a class="dock__book" href="#reserver">Réserver une séance <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
-  <a class="wa-float" href="https://wa.me/212632740500" target="_blank" rel="noopener" aria-label="Écrire à Soufiane sur WhatsApp">
+  <a class="wa-float" href="https://wa.me/212632740500" target="_blank" rel="noopener noreferrer" aria-label="Écrire à Soufiane sur WhatsApp">
     <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
   </a>
 
-  <script src="script.js?v=202611211853" defer></script>
+  <script src="script.js?v=202611211902" defer></script>
 </body>
 </html>

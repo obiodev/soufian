@@ -67,7 +67,7 @@ const CONFIG = {
     {
       id: "entreprise", icon: "i-building", wide: true, badge: "Entreprises",
       title: "Formule entreprise",
-      desc: "Des séances sport pour tes équipes, dans vos locaux ou en salle. Cohésion, énergie et bien-être au travail : un programme adapté au niveau et au planning de chacun.",
+      desc: "Des séances sport pour tes équipes, dans tes locaux ou en salle. Cohésion, énergie et bien-être au travail : un programme adapté au niveau et au planning de chacun.",
       points: ["Séances collectives sur site", "Challenges d'équipe & team building", "Planning adapté à l'entreprise", "Devis selon le nombre de participants"],
       location: "entreprise", price: "", duration: "",
     },
@@ -124,7 +124,7 @@ const dateKey = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getD
 const waLink = (text) => `https://wa.me/${CONFIG.whatsapp}${text ? "?text=" + encodeURIComponent(text) : ""}`;
 const openWhatsApp = (text) => {
   const url = waLink(text);
-  const w = window.open(url, "_blank", "noopener");
+  const w = window.open(url, "_blank", "noopener,noreferrer");
   if (!w) location.href = url;
   return url;
 };
@@ -143,7 +143,7 @@ const postJSON = (payload) => {
 $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 const socialHTML = CONFIG.socials
   .filter((s) => s.url)
-  .map((s) => `<a class="social" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.name)}"><svg aria-hidden="true"><use href="#${s.icon}"/></svg></a>`)
+  .map((s) => `<a class="social" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(s.name)}"><svg aria-hidden="true"><use href="#${s.icon}"/></svg></a>`)
   .join("");
 $$("[data-socials]").forEach((el) => (el.innerHTML = socialHTML));
 requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add("is-loaded")));
@@ -328,7 +328,7 @@ if (finePointer && !reduceMotion) {
 
   track.innerHTML = items.map((g, i) => `
     <li class="cslide" data-i="${i}" aria-roledescription="diapositive" aria-label="${i + 1} sur ${n} : ${esc(g.title)}">
-      <a href="${esc(g.url)}" target="_blank" rel="noopener" draggable="false" aria-label="${esc(g.title)} — voir le post Instagram (nouvel onglet)">
+      <a href="${esc(g.url)}" target="_blank" rel="noopener noreferrer" draggable="false" aria-label="${esc(g.title)} — voir le post Instagram (nouvel onglet)">
         <img src="${g.src}" width="${g.w}" height="${g.h}" alt="${esc(g.alt)}" loading="${i < 3 || i === n - 1 ? "eager" : "lazy"}" decoding="async" draggable="false" style="object-position:${g.pos}" />
         <span class="cslide__tag">${esc(g.tag)}</span>
         <span class="cslide__num" aria-hidden="true">${pad(i + 1)}</span>
@@ -880,7 +880,8 @@ if (finePointer && !reduceMotion) {
       const isMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
       const isTel = /^\d{9,15}$/.test(contact.replace(/[\s().+-]/g, ""));
       mark(wl.contact, !(isMail || isTel), "Indique un numéro de téléphone ou un email valide.");
-      if (!ok) { setStatus("Merci de compléter les champs obligatoires.", "error"); (name.length < 2 ? wl.prenom : wl.contact).focus(); return; }
+      mark(wl.consent, !wl.consent.checked, "Coche la case pour accepter d'être recontacté(e).");
+      if (!ok) { setStatus("Merci de compléter les champs obligatoires.", "error"); wl.querySelector(".is-invalid input")?.focus(); return; }
       const profil = wl.profil.value;
       const msg = [
         "Bonjour Soufiane,",
@@ -890,10 +891,10 @@ if (finePointer && !reduceMotion) {
         `- *Contact :* ${contact}`,
         profil ? `- *Profil :* ${profil}` : null,
         "",
-        "Préviens-moi dès qu'elle sort !",
+        "Préviens-moi dès qu'elle sort ! (J'accepte d'être recontacté(e) à ce sujet.)",
       ].filter((l) => l !== null).join("\n");
       openWhatsApp(msg);
-      postJSON({ source: "liste-attente-app", prenom: name, contact, profil });
+      postJSON({ source: "liste-attente-app", prenom: name, contact, profil, consentement: new Date().toISOString() });
       setStatus("✓ Ta demande est prête dans WhatsApp : il ne reste qu'à appuyer sur Envoyer.", "ok");
       wl.reset();
     });

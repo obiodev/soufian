@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://obiodev.github.io/soufian/sitemap.xml

@@ -112,6 +112,143 @@ const CONFIG = {
 };
 
 /* =====================================================================
+   LANGUES — FR (par défaut), EN (/en/), AR (/ar/)
+   La langue est lue sur <html lang="…">. Les textes générés par le script
+   et les traductions des offres / photos / listes sont ci-dessous.
+   ===================================================================== */
+const LANG = (() => { const l = (document.documentElement.lang || "fr").slice(0, 2); return ["en", "ar"].includes(l) ? l : "fr"; })();
+const ROOT = document.documentElement.dataset.root || "";
+const LOCALE = { fr: "fr-FR", en: "en-GB", ar: "ar-MA" }[LANG];
+
+const STRINGS = {
+  fr: {
+    book: "Réserver", menu: "Menu", menuClose: "Fermer le menu", play: "Lancer le défilement automatique", pause: "Mettre en pause le défilement automatique",
+    price: "Tarif", onRequest: "Sur demande", onRequestLong: "Tarif sur demande",
+    slide: "diapositive", slideOf: (i, n, t) => `${i} sur ${n} : ${t}`, seePostAria: (t) => `${t} — voir le post Instagram (nouvel onglet)`, seePost: "Voir le post", photo: "Photo",
+    chooseCity: "Choisis ta ville", chooseGoal: "Choisis un objectif",
+    unavailable: " — indisponible", today: "Auj.", chooseHour: "choisis une heure", past: " — passé", noSlot: "Aucun créneau ce jour-là.", hourSep: " h ",
+    errType: "Choisis un type de séance pour continuer.", errLieu: "Indique si la séance a lieu à domicile, en salle ou en entreprise.",
+    errSociete: "Indique le nom de l'entreprise.", errVille: "Choisis ta ville.", errQuartier: "Indique ton quartier.",
+    errDate: "Choisis un jour disponible.", errTime: "Choisis une heure.", errNom: "Indique ton nom.",
+    errTel: "Numéro invalide. Ex. 06 12 34 56 78 ou +212 6 12 34 56 78.", missing: "Il manque une information à cette étape.",
+    home: "À domicile", gym: "En salle", company: "En entreprise", participants: "participants",
+    hello: "Bonjour Soufiane,", wantBook: "Je souhaite réserver une séance via ton site :", confirmAsk: "Peux-tu me confirmer la disponibilité ? Merci !",
+    lSession: "Séance", lPlace: "Lieu", lDate: "Date", lTime: "Heure", lName: "Nom", lPhone: "Téléphone", lGoal: "Objectif", lLevel: "Niveau", lMessage: "Message",
+    edit: "Modifier", confirm: "Confirmer", confirmOn: " sur WhatsApp", next: "Continuer", stepOf: (s, t) => `Étape ${s} sur ${t}`,
+    ready: "Demande prête dans WhatsApp. Il ne reste qu'à envoyer le message.",
+    icsPending: "(à confirmer)", icsDesc: "Demande envoyée sur WhatsApp. Contact :", icsFile: "seance-soufiane-zalik.ics",
+    wErrName: "Indique ton prénom.", wErrContact: "Indique un numéro de téléphone ou un email valide.", wErrConsent: "Coche la case pour accepter d'être recontacté(e).",
+    wMissing: "Merci de compléter les champs obligatoires.", wJoin: "Je veux rejoindre la liste d'attente de ton app.",
+    wFirst: "Prénom", wContact: "Contact", wProfile: "Profil", wNotify: "Préviens-moi dès qu'elle sort ! (J'accepte d'être recontacté(e) à ce sujet.)",
+    wOk: "✓ Ta demande est prête dans WhatsApp : il ne reste qu'à appuyer sur Envoyer.",
+  },
+  en: {
+    book: "Book", menu: "Menu", menuClose: "Close menu", play: "Start autoplay", pause: "Pause autoplay",
+    price: "Price", onRequest: "On request", onRequestLong: "Price on request",
+    slide: "slide", slideOf: (i, n, t) => `${i} of ${n}: ${t}`, seePostAria: (t) => `${t} — view the Instagram post (new tab)`, seePost: "View post", photo: "Photo",
+    chooseCity: "Choose your city", chooseGoal: "Choose a goal",
+    unavailable: " — unavailable", today: "Today", chooseHour: "choose a time", past: " — past", noSlot: "No slots that day.", hourSep: ":",
+    errType: "Choose a session type to continue.", errLieu: "Tell me whether the session is at home, at the gym or at your company.",
+    errSociete: "Enter the company name.", errVille: "Choose your city.", errQuartier: "Enter your neighbourhood.",
+    errDate: "Choose an available day.", errTime: "Choose a time.", errNom: "Enter your name.",
+    errTel: "Invalid number. E.g. 06 12 34 56 78 or +212 6 12 34 56 78.", missing: "Some information is missing at this step.",
+    home: "At home", gym: "At the gym", company: "At the company", participants: "participants",
+    hello: "Hello Soufiane,", wantBook: "I'd like to book a session through your website:", confirmAsk: "Could you confirm availability? Thank you!",
+    lSession: "Session", lPlace: "Place", lDate: "Date", lTime: "Time", lName: "Name", lPhone: "Phone", lGoal: "Goal", lLevel: "Level", lMessage: "Message",
+    edit: "Edit", confirm: "Confirm", confirmOn: " on WhatsApp", next: "Continue", stepOf: (s, t) => `Step ${s} of ${t}`,
+    ready: "Request ready in WhatsApp. All that's left is to send the message.",
+    icsPending: "(to be confirmed)", icsDesc: "Request sent on WhatsApp. Contact:", icsFile: "session-soufiane-zalik.ics",
+    wErrName: "Enter your first name.", wErrContact: "Enter a valid phone number or email.", wErrConsent: "Tick the box to agree to be contacted.",
+    wMissing: "Please fill in the required fields.", wJoin: "I'd like to join your app's waitlist.",
+    wFirst: "First name", wContact: "Contact", wProfile: "Profile", wNotify: "Let me know as soon as it's out! (I agree to be contacted about it.)",
+    wOk: "✓ Your request is ready in WhatsApp: just tap Send.",
+  },
+  ar: {
+    book: "احجز", menu: "القائمة", menuClose: "إغلاق القائمة", play: "تشغيل التمرير التلقائي", pause: "إيقاف التمرير التلقائي مؤقتًا",
+    price: "السعر", onRequest: "عند الطلب", onRequestLong: "السعر عند الطلب",
+    slide: "شريحة", slideOf: (i, n, t) => `${i} من ${n}: ${t}`, seePostAria: (t) => `${t} — عرض منشور إنستغرام (علامة تبويب جديدة)`, seePost: "عرض المنشور", photo: "صورة",
+    chooseCity: "اختر مدينتك", chooseGoal: "اختر هدفًا",
+    unavailable: " — غير متاح", today: "اليوم", chooseHour: "اختر الساعة", past: " — فات", noSlot: "لا توجد مواعيد في هذا اليوم.", hourSep: ":",
+    errType: "اختر نوع الحصة للمتابعة.", errLieu: "حدّد هل الحصة في المنزل أو في القاعة أو في الشركة.",
+    errSociete: "اكتب اسم الشركة.", errVille: "اختر مدينتك.", errQuartier: "اكتب اسم حيّك.",
+    errDate: "اختر يومًا متاحًا.", errTime: "اختر ساعة.", errNom: "اكتب اسمك.",
+    errTel: "رقم غير صالح. مثال: 06 12 34 56 78 أو ‎+212 6 12 34 56 78.", missing: "تنقص معلومة في هذه الخطوة.",
+    home: "في المنزل", gym: "في القاعة", company: "في الشركة", participants: "مشاركين",
+    hello: "السلام عليكم سفيان،", wantBook: "أرغب في حجز حصة عبر موقعك:", confirmAsk: "هل يمكنك تأكيد التوفر؟ شكرًا!",
+    lSession: "الحصة", lPlace: "المكان", lDate: "التاريخ", lTime: "الساعة", lName: "الاسم", lPhone: "الهاتف", lGoal: "الهدف", lLevel: "المستوى", lMessage: "الرسالة",
+    edit: "تعديل", confirm: "تأكيد", confirmOn: " على واتساب", next: "متابعة", stepOf: (s, t) => `الخطوة ${s} من ${t}`,
+    ready: "الطلب جاهز في واتساب. لم يبقَ سوى إرسال الرسالة.",
+    icsPending: "(في انتظار التأكيد)", icsDesc: "تم إرسال الطلب عبر واتساب. للتواصل:", icsFile: "hissa-soufiane-zalik.ics",
+    wErrName: "اكتب اسمك الشخصي.", wErrContact: "اكتب رقم هاتف أو بريدًا إلكترونيًا صالحًا.", wErrConsent: "ضع علامة في الخانة للموافقة على التواصل معك.",
+    wMissing: "المرجو ملء الحقول الإلزامية.", wJoin: "أريد الانضمام إلى قائمة انتظار تطبيقك.",
+    wFirst: "الاسم", wContact: "وسيلة التواصل", wProfile: "الصفة", wNotify: "أخبرني فور صدوره! (أوافق على أن يتم التواصل معي بخصوص ذلك.)",
+    wOk: "✓ طلبك جاهز في واتساب: اضغط فقط على إرسال.",
+  },
+};
+const S = STRINGS[LANG];
+
+/* Traductions du contenu de CONFIG (offres, listes, photos). Le français reste dans CONFIG ci-dessus. */
+const CONTENT_I18N = {
+  en: {
+    offers: {
+      decouverte: { badge: "To get started", title: "Discovery session & assessment", desc: "The ideal starting point: goals, level, history, mobility. You leave with a clear plan.", points: ["Full assessment of your level", "Goals set together", "At home or at the gym"] },
+      domicile: { title: "Personal training at home", desc: "I come to you with a session built for your space and your goal. No commute, no excuses.", points: ["Tailored one-to-one session", "Adapted to your space", "Flexible times"] },
+      salle: { title: "Personal training at the gym", desc: "All the equipment to progress fast: weights, sled, rower, SkiErg. Coached technique and intensity.", points: ["Strength, cardio & power", "Technique corrected live", "Location agreed together"] },
+      hyrox: { title: "HYROX & hybrid prep", desc: "Running + stations: SkiErg, sled push & pull, rower, wall balls… The method of a coach who races.", points: ["Running & compromised running", "Station-specific work", "Race strategy"] },
+      boxe: { title: "Boxing & cardio", desc: "Technique, coordination and serious cardio, drawn from my BODYCOMBAT™, HBX Boxing and kickboxing certifications.", points: ["Strikes & footwork", "Cardio conditioning", "Guaranteed release"] },
+      duo: { title: "Duo & small group", desc: "Train with your partner, a friend or colleagues. Same standards, plus the energy of the group.", points: ["In pairs or small groups", "Shared, adapted program", "Shared motivation"] },
+      entreprise: { badge: "Companies", title: "Corporate package", desc: "Fitness sessions for your teams, at your premises or at the gym. Team spirit, energy and wellbeing at work: a program adapted to everyone's level and schedule.", points: ["On-site group sessions", "Team challenges & team building", "Schedule adapted to the company", "Quote based on the number of participants"] },
+    },
+    cities: ["Casablanca", "Bouskoura", "Dar Bouazza", "Mohammedia", "Other (please specify)"],
+    goals: ["Get fit", "Lose weight", "Build muscle", "Cardio & endurance", "HYROX / race prep", "Boxing", "Return after a break", "Other"],
+    levels: ["Beginner", "Intermediate", "Advanced", "Athlete"],
+    gallery: [
+      { tag: "Race", title: "Sled push", caption: "HYROX — racing against the clock", alt: "Soufiane pushing a loaded sled at a HYROX race" },
+      { tag: "HYROX Istanbul", title: "The finish line", caption: "The Moroccan flag raised on the finish stage", alt: "Soufiane holding up the Moroccan flag on the HYROX Istanbul finish stage" },
+      { tag: "Endurance", title: "Ironman simulation", caption: "1.2 km swim · 51 km bike · 10.5 km run, in one day", alt: "Soufiane's selfie on his bike with helmet and blue sunglasses" },
+      { tag: "Training", title: "HYROX WOD", caption: "Sled on turf, compromised running", alt: "Soufiane pushing a loaded sled on artificial turf at the gym" },
+      { tag: "Finish", title: "After the effort", caption: "His name on the HYROX finish screen", alt: "Soufiane past the HYROX finish line, the screen shows the athletes list" },
+      { tag: "Cycling", title: "Endurance on the road", caption: "A ride planned short… 98 km on the clock", alt: "Soufiane adjusting his helmet next to his road bike under a blue sky" },
+      { tag: "Strength", title: "More than muscles", caption: "Real strength is built in silence", alt: "Soufiane doing a band exercise in front of a weight rack" },
+      { tag: "Mindset", title: "Discipline", caption: "Even when the city sleeps", alt: "Soufiane sitting in the open trunk of his car at night" },
+    ],
+  },
+  ar: {
+    offers: {
+      decouverte: { badge: "للبداية", title: "حصة اكتشاف وتقييم", desc: "نقطة الانطلاق المثالية: الأهداف، المستوى، التاريخ الرياضي، المرونة. تخرج بخطة واضحة.", points: ["تقييم شامل لمستواك", "أهداف نحدّدها معًا", "في المنزل أو في القاعة"] },
+      domicile: { title: "تدريب شخصي في المنزل", desc: "آتي إليك بحصة مبنية لمساحتك وهدفك. لا تنقّل، لا أعذار.", points: ["حصة فردية على المقاس", "ملائمة لمساحتك", "مواعيد مرنة"] },
+      salle: { title: "تدريب شخصي في القاعة", desc: "كل المعدات للتقدّم بسرعة: أوزان، زلاجة، آلة تجديف، SkiErg. تقنية وشدة تحت الإشراف.", points: ["قوة، تحمّل وانفجارية", "تصحيح التقنية مباشرة", "نتفق على المكان معًا"] },
+      hyrox: { title: "تحضير HYROX والتدريب الهجين", desc: "جري + محطات: SkiErg، دفع وسحب الزلاجة، التجديف، كرات الحائط… منهج مدرب يشارك في السباقات.", points: ["الجري و compromised running", "عمل خاص بكل محطة", "استراتيجية السباق"] },
+      boxe: { title: "ملاكمة وتحمّل", desc: "تقنية وتنسيق وتحمّل قوي، مستوحاة من شهاداتي في BODYCOMBAT™ وHBX Boxing والكيك بوكسينغ.", points: ["الضربات والتنقلات", "تقوية التحمّل", "تفريغ مضمون للطاقة"] },
+      duo: { title: "ثنائي ومجموعة صغيرة", desc: "تدرّب مع شريكك أو صديق أو زملاء. نفس الصرامة، مع طاقة المجموعة.", points: ["ثنائي أو مجموعة صغيرة", "برنامج مشترك ملائم", "تحفيز مشترك"] },
+      entreprise: { badge: "الشركات", title: "باقة الشركات", desc: "حصص رياضية لفرقك، في مقرّاتك أو في القاعة. روح الفريق، طاقة ورفاهية في العمل: برنامج ملائم لمستوى وجدول كل فرد.", points: ["حصص جماعية في مقرّ العمل", "تحديات وأنشطة لروح الفريق", "جدول ملائم للشركة", "عرض سعر حسب عدد المشاركين"] },
+    },
+    cities: ["الدار البيضاء", "بوسكورة", "دار بوعزة", "المحمدية", "أخرى (حدّدها)"],
+    goals: ["استعادة اللياقة", "إنقاص الوزن", "بناء العضلات", "التحمّل والقلب", "تحضير HYROX / سباق", "ملاكمة", "العودة بعد انقطاع", "أخرى"],
+    levels: ["مبتدئ", "متوسط", "متقدّم", "رياضي"],
+    gallery: [
+      { tag: "منافسة", title: "دفع الزلاجة", caption: "HYROX — تحت ضغط الوقت", alt: "سفيان يدفع زلاجة محمّلة في سباق HYROX" },
+      { tag: "HYROX إسطنبول", title: "خط الوصول", caption: "العلم المغربي مرفوع على منصة الوصول", alt: "سفيان يرفع العلم المغربي على منصة الوصول في HYROX إسطنبول" },
+      { tag: "تحمّل", title: "محاكاة Ironman", caption: "1,2 كلم سباحة · 51 كلم دراجة · 10,5 كلم جري، في يوم واحد", alt: "صورة ذاتية لسفيان على دراجته بخوذة ونظارات زرقاء" },
+      { tag: "تدريب", title: "WOD HYROX", caption: "زلاجة على العشب، compromised running", alt: "سفيان يدفع زلاجة محمّلة على عشب صناعي في القاعة" },
+      { tag: "الوصول", title: "بعد المجهود", caption: "اسمه على شاشة الوصول في HYROX", alt: "سفيان بعد خط الوصول في HYROX، والشاشة تعرض قائمة الرياضيين" },
+      { tag: "دراجة", title: "التحمّل على الطريق", caption: "جولة كانت مقرّرة قصيرة… 98 كلم في العدّاد", alt: "سفيان يضبط خوذته بجانب دراجته تحت سماء زرقاء" },
+      { tag: "قوة", title: "أكثر من عضلات", caption: "القوة الحقيقية تُبنى في صمت", alt: "سفيان يقوم بتمرين بالمطاط أمام رف الأثقال" },
+      { tag: "عقلية", title: "انضباط", caption: "حتى عندما تنام المدينة", alt: "سفيان جالس في صندوق سيارته المفتوح ليلًا" },
+    ],
+  },
+};
+(() => {
+  const tr = CONTENT_I18N[LANG];
+  if (tr) {
+    CONFIG.offers.forEach((o) => Object.assign(o, tr.offers[o.id] || {}));
+    ["cities", "goals", "levels"].forEach((k) => { if (tr[k]) CONFIG[k] = tr[k]; });
+    CONFIG.gallery.forEach((g, i) => Object.assign(g, tr.gallery[i] || {}));
+  }
+  CONFIG.gallery.forEach((g) => { g.src = ROOT + g.src; });
+})();
+
+/* =====================================================================
    Helpers
    ===================================================================== */
 const $ = (s, c = document) => c.querySelector(s);
@@ -181,7 +318,7 @@ requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement
   const mq = matchMedia("(min-width: 1024px)");
   const setOpen = (open) => {
     burger.setAttribute("aria-expanded", String(open));
-    burger.querySelector(".sr-only").textContent = open ? "Fermer le menu" : "Menu";
+    burger.querySelector(".sr-only").textContent = open ? S.menuClose : S.menu;
     nav.classList.toggle("menu-open", open);
     document.body.classList.toggle("is-locked", open);
     if (open) setTimeout(() => $("a", menu)?.focus(), 80);
@@ -226,7 +363,7 @@ function observeCounters(root = document) {
       io.unobserve(el);
       const target = parseFloat(el.dataset.count);
       const dec = parseInt(el.dataset.decimals || "0", 10);
-      const fmt = (v) => v.toLocaleString("fr-FR", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+      const fmt = (v) => v.toLocaleString(LOCALE, { minimumFractionDigits: dec, maximumFractionDigits: dec });
       if (reduceMotion) { el.textContent = fmt(target); return; }
       const t0 = performance.now(), dur = 1600;
       const tick = (now) => {
@@ -298,8 +435,8 @@ if (finePointer && !reduceMotion) {
       <p class="offer__desc">${esc(o.desc)}</p>
       <ul class="ticks">${o.points.map((p) => `<li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>${esc(p)}</li>`).join("")}</ul>
       <div class="offer__foot">
-        <p class="offer__price"><small>${o.duration ? esc(o.duration) : "Tarif"}</small><b>${o.price ? esc(o.price) : "Sur demande"}</b></p>
-        <a class="btn btn--volt" href="#reserver" data-offer="${o.id}" aria-label="Réserver : ${esc(o.title)}">Réserver <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <p class="offer__price"><small>${o.duration ? esc(o.duration) : S.price}</small><b>${o.price ? esc(o.price) : S.onRequest}</b></p>
+        <a class="btn btn--volt" href="#reserver" data-offer="${o.id}" aria-label="${S.book} : ${esc(o.title)}">${S.book} <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
     </article>`).join("");
   const io = new IntersectionObserver((en) => en.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }), { threshold: 0.1 });
@@ -327,15 +464,15 @@ if (finePointer && !reduceMotion) {
   let active = 0;
 
   track.innerHTML = items.map((g, i) => `
-    <li class="cslide" data-i="${i}" aria-roledescription="diapositive" aria-label="${i + 1} sur ${n} : ${esc(g.title)}">
-      <a href="${esc(g.url)}" target="_blank" rel="noopener noreferrer" draggable="false" aria-label="${esc(g.title)} — voir le post Instagram (nouvel onglet)">
+    <li class="cslide" data-i="${i}" aria-roledescription="${S.slide}" aria-label="${esc(S.slideOf(i + 1, n, g.title))}">
+      <a href="${esc(g.url)}" target="_blank" rel="noopener noreferrer" draggable="false" aria-label="${esc(S.seePostAria(g.title))}">
         <img src="${g.src}" width="${g.w}" height="${g.h}" alt="${esc(g.alt)}" loading="${i < 3 || i === n - 1 ? "eager" : "lazy"}" decoding="async" draggable="false" style="object-position:${g.pos}" />
         <span class="cslide__tag">${esc(g.tag)}</span>
         <span class="cslide__num" aria-hidden="true">${pad(i + 1)}</span>
-        <span class="cslide__ig" aria-hidden="true"><svg><use href="#i-instagram"/></svg>Voir le post</span>
+        <span class="cslide__ig" aria-hidden="true"><svg><use href="#i-instagram"/></svg>${S.seePost}</span>
       </a>
     </li>`).join("");
-  dotsWrap.innerHTML = items.map((g, i) => `<button type="button" class="cdot" data-i="${i}" aria-label="Photo ${i + 1} : ${esc(g.title)}"><span></span></button>`).join("");
+  dotsWrap.innerHTML = items.map((g, i) => `<button type="button" class="cdot" data-i="${i}" aria-label="${S.photo} ${i + 1} : ${esc(g.title)}"><span></span></button>`).join("");
   const slides = $$(".cslide", track);
   const dots = $$(".cdot", dotsWrap);
 
@@ -393,7 +530,7 @@ if (finePointer && !reduceMotion) {
   requestAnimationFrame(tick);
   const setPlayUI = () => {
     btnPlay.innerHTML = `<svg aria-hidden="true"><use href="#${userPaused ? "i-play" : "i-pause"}"/></svg>`;
-    btnPlay.setAttribute("aria-label", userPaused ? "Lancer le défilement automatique" : "Mettre en pause le défilement automatique");
+    btnPlay.setAttribute("aria-label", userPaused ? S.play : S.pause);
   };
   btnPlay.addEventListener("click", () => { userPaused = !userPaused; setPlayUI(); });
   setPlayUI();
@@ -487,7 +624,7 @@ if (finePointer && !reduceMotion) {
   const offerById = (id) => CONFIG.offers.find((o) => o.id === id);
   const fmtDateLong = (key) => {
     const [y, m, d] = key.split("-").map(Number);
-    const s = new Date(y, m - 1, d).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    const s = new Date(y, m - 1, d).toLocaleDateString(LOCALE, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
     return s.charAt(0).toUpperCase() + s.slice(1);
   };
 
@@ -498,14 +635,14 @@ if (finePointer && !reduceMotion) {
       <span class="choice__box">
         <svg class="choice__ico" aria-hidden="true"><use href="#${o.icon}"/></svg>
         <span class="choice__t">${esc(o.title)}</span>
-        <span class="choice__d">${o.price ? esc(o.price) : "Tarif sur demande"}</span>
+        <span class="choice__d">${o.price ? esc(o.price) : S.onRequestLong}</span>
         <span class="choice__tick" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
       </span>
     </label>`).join("");
 
   /* --- Selects / chips --- */
-  $("#f-ville").innerHTML = `<option value="">Choisis ta ville</option>` + CONFIG.cities.map((c) => `<option>${esc(c)}</option>`).join("");
-  $("#f-obj").innerHTML = `<option value="">Choisis un objectif</option>` + CONFIG.goals.map((c) => `<option>${esc(c)}</option>`).join("");
+  $("#f-ville").innerHTML = `<option value="">${S.chooseCity}</option>` + CONFIG.cities.map((c) => `<option>${esc(c)}</option>`).join("");
+  $("#f-obj").innerHTML = `<option value="">${S.chooseGoal}</option>` + CONFIG.goals.map((c) => `<option>${esc(c)}</option>`).join("");
   $("#lvlChips").innerHTML = CONFIG.levels.map((l) => `<label class="chip"><input type="radio" name="niveau" value="${esc(l)}" /><span>${esc(l)}</span></label>`).join("");
 
   /* --- Lieu sub-fields --- */
@@ -537,7 +674,7 @@ if (finePointer && !reduceMotion) {
     const today = new Date(); today.setHours(0, 0, 0, 0);
     days.length = 0;
     for (let i = 0; i < A.daysAhead; i++) { const d = new Date(today); d.setDate(today.getDate() + i); days.push(d); }
-    const monthName = (d) => d.toLocaleDateString("fr-FR", { month: "long" });
+    const monthName = (d) => d.toLocaleDateString(LOCALE, { month: "long" });
     const first = days[0], lastD = days[days.length - 1];
     const label = first.getMonth() === lastD.getMonth()
       ? `${monthName(first)} ${first.getFullYear()}`
@@ -557,8 +694,8 @@ if (finePointer && !reduceMotion) {
       }
       const open = slotsFor(d).some((s) => isSlotOpen(d, s));
       const isToday = i === 0;
-      const full = d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
-      html += `<button type="button" class="cal__day${isToday ? " is-today" : ""}" data-key="${dateKey(d)}" aria-pressed="false" ${open ? "" : "disabled"} aria-label="${full}${open ? "" : " — indisponible"}"><b>${d.getDate()}</b><small>${isToday ? "Auj." : d.toLocaleDateString("fr-FR", { weekday: "short" }).replace(".", "")}</small></button>`;
+      const full = d.toLocaleDateString(LOCALE, { weekday: "long", day: "numeric", month: "long" });
+      html += `<button type="button" class="cal__day${isToday ? " is-today" : ""}" data-key="${dateKey(d)}" aria-pressed="false" ${open ? "" : "disabled"} aria-label="${full}${open ? "" : S.unavailable}"><b>${d.getDate()}</b><small>${isToday ? S.today : d.toLocaleDateString(LOCALE, { weekday: "short" }).replace(".", "")}</small></button>`;
     });
     $("#calGrid").innerHTML = html;
     if (state.date) {
@@ -572,10 +709,10 @@ if (finePointer && !reduceMotion) {
     const d = days.find((x) => dateKey(x) === state.date);
     const list = slotsFor(d);
     wrap.hidden = false;
-    $("#slotsTitle").innerHTML = `${esc(fmtDateLong(state.date))} <span>· choisis une heure</span>`;
+    $("#slotsTitle").innerHTML = `${esc(fmtDateLong(state.date))} <span>· ${S.chooseHour}</span>`;
     grid.innerHTML = list.length
-      ? list.map((t) => { const ok = isSlotOpen(d, t); return `<button type="button" class="slot" data-time="${t}" aria-pressed="${state.time === t}" ${ok ? "" : "disabled"} aria-label="${t.replace(":", " h ")}${ok ? "" : " — passé"}">${t}</button>`; }).join("")
-      : `<p class="slots__empty">Aucun créneau ce jour-là.</p>`;
+      ? list.map((t) => { const ok = isSlotOpen(d, t); return `<button type="button" class="slot" data-time="${t}" aria-pressed="${state.time === t}" ${ok ? "" : "disabled"} aria-label="${t.replace(":", S.hourSep)}${ok ? "" : S.past}">${t}</button>`; }).join("")
+      : `<p class="slots__empty">${S.noSlot}</p>`;
   };
   $("#calGrid").addEventListener("click", (e) => {
     const b = e.target.closest(".cal__day");
@@ -623,31 +760,31 @@ if (finePointer && !reduceMotion) {
   const validate = (s) => {
     const errs = [];
     const need = (cond, name, msg) => { if (!cond) { setErr(name, msg); errs.push(name); } else setErr(name, ""); };
-    if (s === 1) need(form.type.value, "type", "Choisis un type de séance pour continuer.");
+    if (s === 1) need(form.type.value, "type", S.errType);
     if (s === 2) {
-      need(form.lieu.value, "lieu", "Indique si la séance a lieu à domicile, en salle ou en entreprise.");
+      need(form.lieu.value, "lieu", S.errLieu);
       if (form.lieu.value === "entreprise") {
-        need(form.societe.value.trim().length >= 2, "societe", "Indique le nom de l'entreprise.");
+        need(form.societe.value.trim().length >= 2, "societe", S.errSociete);
       }
       if (form.lieu.value === "domicile") {
-        need(form.ville.value, "ville", "Choisis ta ville.");
-        need(form.quartier.value.trim().length >= 2, "quartier", "Indique ton quartier.");
+        need(form.ville.value, "ville", S.errVille);
+        need(form.quartier.value.trim().length >= 2, "quartier", S.errQuartier);
       }
     }
     if (s === 3) {
-      need(state.date, "date", "Choisis un jour disponible.");
-      if (state.date) need(state.time, "time", "Choisis une heure.");
+      need(state.date, "date", S.errDate);
+      if (state.date) need(state.time, "time", S.errTime);
     }
     if (s === 4) {
-      need(form.nom.value.trim().length >= 2, "nom", "Indique ton nom.");
+      need(form.nom.value.trim().length >= 2, "nom", S.errNom);
       const digits = form.tel.value.replace(/[\s().+-]/g, "");
-      need(/^\d{9,15}$/.test(digits), "tel", "Numéro invalide. Ex. 06 12 34 56 78 ou +212 6 12 34 56 78.");
+      need(/^\d{9,15}$/.test(digits), "tel", S.errTel);
     }
     if (errs.length) {
       const first = form.elements[errs[0]];
       const target = first && first.focus && !(first instanceof RadioNodeList) ? first : $(`.wz-step[data-step="${s}"] input:not([disabled]), .wz-step[data-step="${s}"] button:not([disabled])`);
       target?.focus?.();
-      announce("Il manque une information à cette étape.");
+      announce(S.missing);
     }
     return errs.length === 0;
   };
@@ -657,11 +794,11 @@ if (finePointer && !reduceMotion) {
     const o = offerById(form.type.value);
     const lieu = form.lieu.value;
     let lieuTxt = "";
-    if (lieu === "domicile") lieuTxt = `À domicile — ${form.ville.value}${form.quartier.value.trim() ? ", " + form.quartier.value.trim() : ""}`;
-    else if (lieu === "salle") lieuTxt = `En salle${form.salle.value.trim() ? " — " + form.salle.value.trim() : ""}`;
+    if (lieu === "domicile") lieuTxt = `${S.home} — ${form.ville.value}${form.quartier.value.trim() ? ", " + form.quartier.value.trim() : ""}`;
+    else if (lieu === "salle") lieuTxt = `${S.gym}${form.salle.value.trim() ? " — " + form.salle.value.trim() : ""}`;
     else if (lieu === "entreprise") {
-      const extra = [form.effectif.value.trim() && `${form.effectif.value.trim()} participants`, form.villeEnt.value.trim()].filter(Boolean).join(", ");
-      lieuTxt = `En entreprise — ${form.societe.value.trim()}${extra ? " (" + extra + ")" : ""}`;
+      const extra = [form.effectif.value.trim() && `${form.effectif.value.trim()} ${S.participants}`, form.villeEnt.value.trim()].filter(Boolean).join(", ");
+      lieuTxt = `${S.company} — ${form.societe.value.trim()}${extra ? " (" + extra + ")" : ""}`;
     }
     return {
       type: o?.title || "", lieu: lieuTxt, date: state.date ? fmtDateLong(state.date) : "", heure: state.time || "",
@@ -670,39 +807,39 @@ if (finePointer && !reduceMotion) {
     };
   };
   const message = (d) => [
-    "Bonjour Soufiane,",
-    "Je souhaite réserver une séance via ton site :",
+    S.hello,
+    S.wantBook,
     "",
-    `- *Séance :* ${d.type}`,
-    `- *Lieu :* ${d.lieu}`,
-    `- *Date :* ${d.date}`,
-    `- *Heure :* ${d.heure}`,
+    `- *${S.lSession} :* ${d.type}`,
+    `- *${S.lPlace} :* ${d.lieu}`,
+    `- *${S.lDate} :* ${d.date}`,
+    `- *${S.lTime} :* ${d.heure}`,
     "",
-    `- *Nom :* ${d.nom}`,
-    `- *Téléphone :* ${d.telephone}`,
-    d.objectif ? `- *Objectif :* ${d.objectif}` : null,
-    d.niveau ? `- *Niveau :* ${d.niveau}` : null,
-    d.message ? `- *Message :* ${d.message}` : null,
+    `- *${S.lName} :* ${d.nom}`,
+    `- *${S.lPhone} :* ${d.telephone}`,
+    d.objectif ? `- *${S.lGoal} :* ${d.objectif}` : null,
+    d.niveau ? `- *${S.lLevel} :* ${d.niveau}` : null,
+    d.message ? `- *${S.lMessage} :* ${d.message}` : null,
     "",
-    "Peux-tu me confirmer la disponibilité ? Merci !",
+    S.confirmAsk,
   ].filter((l) => l !== null).join("\n");
 
   const renderRecap = () => {
     const d = data();
-    const row = (label, val, s, cls = "") => `<div class="recap__row ${cls}"><dt>${label}</dt><dd>${esc(val || "—")}</dd><button type="button" class="recap__edit" data-goto="${s}" aria-label="Modifier : ${label}">Modifier</button></div>`;
+    const row = (label, val, s, cls = "") => `<div class="recap__row ${cls}"><dt>${label}</dt><dd>${esc(val || "—")}</dd><button type="button" class="recap__edit" data-goto="${s}" aria-label="${S.edit} : ${label}">${S.edit}</button></div>`;
     $("#recap").innerHTML =
-      row("Séance", d.type, 1, "recap__row--hl") + row("Lieu", d.lieu, 2) +
-      row("Date", d.date, 3, "recap__row--hl") + row("Heure", d.heure, 3) +
-      row("Nom", d.nom, 4) + row("Téléphone", d.telephone, 4) +
-      row("Objectif", d.objectif, 4) + row("Niveau", d.niveau, 4) +
-      (d.message ? row("Message", d.message, 4, "recap__row--full") : "");
+      row(S.lSession, d.type, 1, "recap__row--hl") + row(S.lPlace, d.lieu, 2) +
+      row(S.lDate, d.date, 3, "recap__row--hl") + row(S.lTime, d.heure, 3) +
+      row(S.lName, d.nom, 4) + row(S.lPhone, d.telephone, 4) +
+      row(S.lGoal, d.objectif, 4) + row(S.lLevel, d.niveau, 4) +
+      (d.message ? row(S.lMessage, d.message, 4, "recap__row--full") : "");
   };
   $("#recap").addEventListener("click", (e) => { const b = e.target.closest("[data-goto]"); if (b) goTo(+b.dataset.goto); });
 
   function updateSummary() {
     const parts = [];
     const o = offerById(form.type.value); if (o) parts.push(o.title);
-    if (form.lieu.value) parts.push({ domicile: "À domicile", salle: "En salle", entreprise: "En entreprise" }[form.lieu.value]);
+    if (form.lieu.value) parts.push({ domicile: S.home, salle: S.gym, entreprise: S.company }[form.lieu.value]);
     if (state.date) parts.push(fmtDateLong(state.date).split(" ").slice(0, 3).join(" ") + (state.time ? " · " + state.time : ""));
     summary.textContent = parts.join(" — ");
   }
@@ -725,13 +862,13 @@ if (finePointer && !reduceMotion) {
     bar.style.width = (step / TOTAL) * 100 + "%";
     btnPrev.hidden = step === 1;
     btnNext.innerHTML = step === TOTAL
-      ? `<svg class="ico" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>Confirmer<span class="hide-sm"> sur WhatsApp</span></span>`
-      : `Continuer <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg>`;
+      ? `<svg class="ico" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>${S.confirm}<span class="hide-sm">${S.confirmOn}</span></span>`
+      : `${S.next} <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg>`;
     if (step === 3) { buildCalendar(); renderSlots(); }
     if (step === TOTAL) renderRecap();
     updateSummary();
     const title = $(`.wz-step[data-step="${step}"] .wz-step__title`);
-    announce(`Étape ${step} sur ${TOTAL} : ${title.textContent.replace(/^Étape \d\/\d/, "").trim()}`);
+    announce(`${S.stepOf(step, TOTAL)} : ${title.textContent.replace(/^[^0-9]*\d\/\d/, "").trim()}`);
     if (focus) {
       title.focus({ preventScroll: true });
       const top = $("#wizard").getBoundingClientRect().top;
@@ -761,7 +898,7 @@ if (finePointer && !reduceMotion) {
     progress.forEach((li) => { li.classList.remove("is-current"); li.classList.add("is-done"); });
     bar.style.width = "100%";
     done.focus();
-    announce("Demande prête dans WhatsApp. Il ne reste qu'à envoyer le message.");
+    announce(S.ready);
   });
 
   $("#wzRestart").addEventListener("click", () => {
@@ -780,12 +917,12 @@ if (finePointer && !reduceMotion) {
     const ics = [
       "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Soufiane Zalik//Reservation//FR", "BEGIN:VEVENT",
       `UID:${Date.now()}@soufiane-zalik`, `DTSTAMP:${f(new Date())}`, `DTSTART:${f(start)}`, `DTEND:${f(endT)}`,
-      `SUMMARY:${dd.type} — Soufiane Zalik (à confirmer)`, `LOCATION:${dd.lieu.replace(/,/g, "\\,")}`,
-      `DESCRIPTION:Demande envoyée sur WhatsApp. Contact : ${CONFIG.phoneDisplay}`, "END:VEVENT", "END:VCALENDAR",
+      `SUMMARY:${dd.type} — Soufiane Zalik ${S.icsPending}`, `LOCATION:${dd.lieu.replace(/,/g, "\\,")}`,
+      `DESCRIPTION:${S.icsDesc} ${CONFIG.phoneDisplay}`, "END:VEVENT", "END:VCALENDAR",
     ].join("\r\n");
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
-    a.download = "seance-soufiane-zalik.ics";
+    a.download = S.icsFile;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   });
@@ -876,26 +1013,26 @@ if (finePointer && !reduceMotion) {
       const contact = wl.contact.value.trim();
       let ok = true;
       const mark = (el, bad, msg) => { el.closest(".field").classList.toggle("is-invalid", bad); el.setAttribute("aria-invalid", String(bad)); $("#" + el.getAttribute("aria-describedby")).textContent = bad ? msg : ""; if (bad) ok = false; };
-      mark(wl.prenom, name.length < 2, "Indique ton prénom.");
+      mark(wl.prenom, name.length < 2, S.wErrName);
       const isMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
       const isTel = /^\d{9,15}$/.test(contact.replace(/[\s().+-]/g, ""));
-      mark(wl.contact, !(isMail || isTel), "Indique un numéro de téléphone ou un email valide.");
-      mark(wl.consent, !wl.consent.checked, "Coche la case pour accepter d'être recontacté(e).");
-      if (!ok) { setStatus("Merci de compléter les champs obligatoires.", "error"); wl.querySelector(".is-invalid input")?.focus(); return; }
+      mark(wl.contact, !(isMail || isTel), S.wErrContact);
+      mark(wl.consent, !wl.consent.checked, S.wErrConsent);
+      if (!ok) { setStatus(S.wMissing, "error"); wl.querySelector(".is-invalid input")?.focus(); return; }
       const profil = wl.profil.value;
       const msg = [
-        "Bonjour Soufiane,",
-        "Je veux rejoindre la liste d'attente de ton app.",
+        S.hello,
+        S.wJoin,
         "",
-        `- *Prénom :* ${name}`,
-        `- *Contact :* ${contact}`,
-        profil ? `- *Profil :* ${profil}` : null,
+        `- *${S.wFirst} :* ${name}`,
+        `- *${S.wContact} :* ${contact}`,
+        profil ? `- *${S.wProfile} :* ${profil}` : null,
         "",
-        "Préviens-moi dès qu'elle sort ! (J'accepte d'être recontacté(e) à ce sujet.)",
+        S.wNotify,
       ].filter((l) => l !== null).join("\n");
       openWhatsApp(msg);
       postJSON({ source: "liste-attente-app", prenom: name, contact, profil, consentement: new Date().toISOString() });
-      setStatus("✓ Ta demande est prête dans WhatsApp : il ne reste qu'à appuyer sur Envoyer.", "ok");
+      setStatus(S.wOk, "ok");
       wl.reset();
     });
   }

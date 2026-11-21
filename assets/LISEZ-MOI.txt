@@ -82,3 +82,29 @@ résolution rendront le site encore plus net, surtout sur ordinateur.
 ---------
 Tous les autres textes sont directement dans index.html et app.html.
 Cherche la phrase à modifier (Ctrl+F) et remplace-la.
+
+
+4) LANGUES (français, anglais, arabe)
+-------------------------------------
+Le site existe en 3 langues : / (français), /en/ (anglais), /ar/ (arabe, de droite à gauche).
+Le français est la version de référence : on modifie TOUJOURS les fichiers français
+(index.html, app.html, mentions-legales.html), jamais ceux de /en/ ou /ar/.
+
+Après une modification de texte :
+a. Ajoute ou corrige la traduction dans i18n/pages.py
+   (une ligne par texte : "texte français": ("English", "العربية"),)
+b. Lance :  python i18n/build.py
+   Le script régénère /en/ et /ar/ et liste les textes qui n'ont pas encore de traduction.
+
+Textes affichés par le script (offres, photos, calendrier, erreurs, message WhatsApp) :
+dans script.js, blocs STRINGS (interface) et CONTENT_I18N (offres, villes, objectifs,
+niveaux, légendes des photos). Les prix et durées restent dans CONFIG.offers.
+
+5) GDPR / CONFIDENTIALITÉ, COOKIES, SÉCURITÉ
+--------------------------------------------
+- Page mentions-legales.html : mentions légales, confidentialité (loi 09-08 + RGPD),
+  cookies et sécurité. Mets-la à jour si tu ajoutes un outil (statistiques, Formspree…).
+- Le site n'utilise aucun cookie : pas de bandeau nécessaire. Si tu ajoutes Google
+  Analytics, Meta Pixel, etc., il faudra un bandeau de consentement.
+- Si tu actives formEndpoint (Formspree), ajoute Formspree comme destinataire dans
+  la politique de confidentialité et autorise-le déjà prévu dans la CSP (connect-src).

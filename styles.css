@@ -1294,3 +1294,42 @@ body::after {
 .legal__table th { color: var(--ink); background: var(--bg-2); font-weight: 700; }
 .legal__table-wrap { overflow-x: auto; }
 .legal__updated { margin-top: var(--s12); font-family: var(--f-mono); font-size: var(--fs-xs); color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ---------- Sélecteur de langue ---------- */
+.lang-switch { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--line-2); border-radius: var(--r-pill); position: relative; z-index: 2; }
+.lang-switch a { min-width: 34px; height: 30px; padding: 0 8px; display: grid; place-items: center; border-radius: var(--r-pill); font-family: var(--f-mono); font-size: 0.75rem; font-weight: 500; color: var(--ink-2); transition: background var(--t), color var(--t); }
+.lang-switch a:hover { color: var(--ink); background: rgba(243, 241, 236, 0.08); }
+.lang-switch a[aria-current] { background: var(--ink); color: var(--bg); }
+.lang-switch a[lang="ar"] { font-family: "Cairo", var(--f-sans); font-size: 0.95rem; font-weight: 700; }
+.lang-switch--bar { display: none; }
+.lang-switch--menu { justify-self: start; }
+.lang-switch--menu a { min-width: 48px; height: 40px; font-size: 0.875rem; }
+@media (min-width: 1024px) { .lang-switch--bar { display: inline-flex; margin-inline-end: var(--s2); } }
+
+/* Numéros de téléphone toujours lisibles de gauche à droite */
+a[href^="tel:"], .nav__phone { direction: ltr; unicode-bidi: isolate; }
+
+/* ---------- Arabe (RTL) ---------- */
+html[lang="ar"] {
+  --f-sans: "Archivo", "Cairo", system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+  --f-mono: "JetBrains Mono", "Cairo", ui-monospace, monospace;
+}
+[dir="rtl"] body { font-family: var(--f-sans); }
+[dir="rtl"] *, [dir="rtl"] *::before, [dir="rtl"] *::after { letter-spacing: 0 !important; }
+[dir="rtl"] em, [dir="rtl"] i { font-style: normal; }
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] .display-1, [dir="rtl"] .display-2, [dir="rtl"] .display-3,
+[dir="rtl"] .hero__title, [dir="rtl"] .final__title, [dir="rtl"] .offer__title, [dir="rtl"] .legal__title, [dir="rtl"] .nav__links a { line-height: 1.3; }
+[dir="rtl"] .brand { margin-right: 0; margin-left: auto; }
+[dir="rtl"] .brand__name { direction: ltr; text-align: right; }
+[dir="rtl"] .offer__badge { right: auto; left: var(--s6); }
+[dir="rtl"] .ico use[href="#i-arrow"], [dir="rtl"] .ico use[href="#i-arrow-ne"] { transform: scaleX(-1); transform-origin: center; transform-box: fill-box; }
+[dir="rtl"] .marquee, [dir="rtl"] .marquee__track { direction: ltr; }
+[dir="rtl"] .legal ul { padding-left: 0; padding-right: 1.2em; }
+[dir="rtl"] .legal__table th, [dir="rtl"] .legal__table td { text-align: right; }
+[dir="rtl"] .wz-error, [dir="rtl"] .field label { text-align: right; }
+[dir="rtl"] .field select { padding-right: 16px; padding-left: 44px; background-position: left 14px center; }
+[dir="rtl"] input[type="tel"], [dir="rtl"] input[type="number"] { direction: ltr; text-align: right; }
+@media (min-width: 1024px) { [dir="rtl"] .nav__menu { margin-right: 0; margin-left: var(--s4); } }
+
+/* Empêche le léger défilement horizontal causé par le bandeau incliné */
+html { overflow-x: clip; }

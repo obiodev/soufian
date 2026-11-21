@@ -1,6 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://obiodev.github.io/soufian/</loc><lastmod>2026-11-21</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://obiodev.github.io/soufian/app.html</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://obiodev.github.io/soufian/mentions-legales.html</loc><lastmod>2026-11-21</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://obiodev.github.io/soufian/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://obiodev.github.io/soufian/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://obiodev.github.io/soufian/en/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://obiodev.github.io/soufian/ar/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://obiodev.github.io/soufian/" />
+  </url>
+  <url>
+    <loc>https://obiodev.github.io/soufian/en/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://obiodev.github.io/soufian/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://obiodev.github.io/soufian/en/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://obiodev.github.io/soufian/ar/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://obiodev.github.io/soufian/" />
+  </url>
+  <url>
+    <loc>https://obiodev.github.io/soufian/ar/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://obiodev.github.io/soufian/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://obiodev.github.io/soufian/en/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://obiodev.github.io/soufian/ar/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://obiodev.github.io/soufian/" />
+  </url>
+  <url>
+    <loc>https://obiodev.github.io/soufian/app.html</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://obiodev.github.io/soufian/app.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://obiodev.github.io/soufian/en/app.html" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://obiodev.github.io/soufian/ar/app.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://obiodev.github.io/soufian/app.html" />
+  </url>
+  <url>
+    <loc>https://obiodev.github.io/soufian/en/app.html</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://obiodev.github.io/soufian/app.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://obiodev.github.io/soufian/en/app.html" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://obiodev.github.io/soufian/ar/app.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://obiodev.github.io/soufian/app.html" />
+  </url>
+  <url>
+    <loc>https://obiodev.github.io/soufian/ar/app.html</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://obiodev.github.io/soufian/app.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://obiodev.github.io/soufian/en/app.html" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://obiodev.github.io/soufian/ar/app.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://obiodev.github.io/soufian/app.html" />
+  </url>
+  <url>
+    <loc>https://obiodev.github.io/soufian/mentions-legales.html</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://obiodev.github.io/soufian/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://obiodev.github.io/soufian/en/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://obiodev.github.io/soufian/ar/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://obiodev.github.io/soufian/mentions-legales.html" />
+  </url>
+  <url>
+    <loc>https://obiodev.github.io/soufian/en/mentions-legales.html</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://obiodev.github.io/soufian/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://obiodev.github.io/soufian/en/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://obiodev.github.io/soufian/ar/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://obiodev.github.io/soufian/mentions-legales.html" />
+  </url>
+  <url>
+    <loc>https://obiodev.github.io/soufian/ar/mentions-legales.html</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://obiodev.github.io/soufian/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://obiodev.github.io/soufian/en/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://obiodev.github.io/soufian/ar/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://obiodev.github.io/soufian/mentions-legales.html" />
+  </url>
 </urlset>

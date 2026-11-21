@@ -1,6 +1,8 @@
-.claude/
+*.pyc
 .DS_Store
+.claude/
 Thumbs.db
+__pycache__/
 assets/photos/p03-nov11.jpg
 assets/photos/p11-sep28.jpg
 assets/photos/p12-sep23.jpg

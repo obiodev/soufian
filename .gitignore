@@ -6,3 +6,6 @@ __pycache__/
 assets/photos/p03-nov11.jpg
 assets/photos/p11-sep28.jpg
 assets/photos/p12-sep23.jpg
+
+# Documents de livraison (facture, accès) : jamais dans ce dépôt public
+livraison/

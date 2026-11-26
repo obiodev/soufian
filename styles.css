@@ -244,12 +244,12 @@ body::after {
 }
 .brand { display: inline-flex; align-items: center; gap: 10px; margin-right: auto; position: relative; z-index: 2; }
 .brand__mark {
-  width: 40px; height: 40px; display: grid; place-items: center;
+  width: auto; height: 40px; display: grid; place-items: center;
   transition: transform .5s cubic-bezier(.2, .8, .2, 1);
 }
-.brand__mark img { width: 37px; height: 40px; display: block; }
-.brand:hover .brand__mark { transform: rotate(-12deg) translateY(-2px); }
-.hero__badge-core img { width: 24px; height: 26px; display: block; }
+.brand__mark img { width: auto; height: 38px; display: block; }
+.brand:hover .brand__mark { transform: translateY(-2px); }
+.hero__badge-core img { width: 36px; height: auto; display: block; }
 .brand__name { display: flex; flex-direction: column; font-weight: 800; font-stretch: 85%; text-transform: uppercase; font-size: 0.95rem; line-height: 1.05; letter-spacing: 0.01em; }
 .brand__name small { font-family: var(--f-mono); font-weight: 400; font-stretch: 100%; font-size: 0.625rem; letter-spacing: 0.12em; color: var(--ink-3); margin-top: 3px; }
 

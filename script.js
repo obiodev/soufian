@@ -7,6 +7,7 @@ const CONFIG = {
   /* ---------- Contact ---------- */
   whatsapp: "212632740500",          // international format, no "+" or spaces
   phoneDisplay: "+212 632-740500",
+  goatcounter: "",                   // code GoatCounter (ex. "soufianezalik" pour soufianezalik.goatcounter.com) — vide = statistiques désactivées
   formEndpoint: "",                  // optional, e.g. "https://formspree.io/f/xxxxxx" — also receives bookings/waitlist as JSON
 
   /* ---------- Social networks (footer, menu) ---------- */
@@ -136,6 +137,7 @@ const STRINGS = {
     lSession: "Séance", lPlace: "Lieu", lDate: "Date", lTime: "Heure", lName: "Nom", lPhone: "Téléphone", lGoal: "Objectif", lLevel: "Niveau", lMessage: "Message",
     edit: "Modifier", confirm: "Confirmer", confirmOn: " sur WhatsApp", next: "Continuer", stepOf: (s, t) => `Étape ${s} sur ${t}`,
     ready: "Demande prête dans WhatsApp. Il ne reste qu'à envoyer le message.",
+    waHello: "Bonjour Soufiane, je viens de ton site web.",
     icsPending: "(à confirmer)", icsDesc: "Demande envoyée sur WhatsApp. Contact :", icsFile: "seance-soufiane-zalik.ics",
     wErrName: "Indique ton prénom.", wErrContact: "Indique un numéro de téléphone ou un email valide.", wErrConsent: "Coche la case pour accepter d'être recontacté(e).",
     wMissing: "Merci de compléter les champs obligatoires.", wJoin: "Je veux rejoindre la liste d'attente de ton app.",
@@ -157,6 +159,7 @@ const STRINGS = {
     lSession: "Session", lPlace: "Place", lDate: "Date", lTime: "Time", lName: "Name", lPhone: "Phone", lGoal: "Goal", lLevel: "Level", lMessage: "Message",
     edit: "Edit", confirm: "Confirm", confirmOn: " on WhatsApp", next: "Continue", stepOf: (s, t) => `Step ${s} of ${t}`,
     ready: "Request ready in WhatsApp. All that's left is to send the message.",
+    waHello: "Hello Soufiane, I found you through your website.",
     icsPending: "(to be confirmed)", icsDesc: "Request sent on WhatsApp. Contact:", icsFile: "session-soufiane-zalik.ics",
     wErrName: "Enter your first name.", wErrContact: "Enter a valid phone number or email.", wErrConsent: "Tick the box to agree to be contacted.",
     wMissing: "Please fill in the required fields.", wJoin: "I'd like to join your app's waitlist.",
@@ -178,6 +181,7 @@ const STRINGS = {
     lSession: "الحصة", lPlace: "المكان", lDate: "التاريخ", lTime: "الساعة", lName: "الاسم", lPhone: "الهاتف", lGoal: "الهدف", lLevel: "المستوى", lMessage: "الرسالة",
     edit: "تعديل", confirm: "تأكيد", confirmOn: " على واتساب", next: "متابعة", stepOf: (s, t) => `الخطوة ${s} من ${t}`,
     ready: "الطلب جاهز في واتساب. لم يبقَ سوى إرسال الرسالة.",
+    waHello: "السلام عليكم سفيان، وصلت إليك عبر موقعك الإلكتروني.",
     icsPending: "(في انتظار التأكيد)", icsDesc: "تم إرسال الطلب عبر واتساب. للتواصل:", icsFile: "hissa-soufiane-zalik.ics",
     wErrName: "اكتب اسمك الشخصي.", wErrContact: "اكتب رقم هاتف أو بريدًا إلكترونيًا صالحًا.", wErrConsent: "ضع علامة في الخانة للموافقة على التواصل معك.",
     wMissing: "المرجو ملء الحقول الإلزامية.", wJoin: "أريد الانضمام إلى قائمة انتظار تطبيقك.",
@@ -284,6 +288,47 @@ const socialHTML = CONFIG.socials
   .join("");
 $$("[data-socials]").forEach((el) => (el.innerHTML = socialHTML));
 requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add("is-loaded")));
+
+/* =====================================================================
+   Origine des contacts + statistiques sans cookie (GoatCounter)
+   - Chaque lien WhatsApp ouvre un message pré-rempli contenant [SITE …]
+     → dans WhatsApp, cherche « [SITE » pour retrouver les contacts venus du site.
+   - Si CONFIG.goatcounter est rempli, les visites et les clics (WhatsApp,
+     téléphone, réseaux, réservations) sont comptés, sans cookie.
+   ===================================================================== */
+const PAGE = document.body.classList.contains("page-app") ? "app" : document.body.classList.contains("page-legal") ? "mentions" : "accueil";
+const siteTag = (what) => `[SITE · ${what || PAGE} · ${LANG.toUpperCase()}]`;
+$$('a[href^="https://wa.me/"]').forEach((a) => {
+  if (!a.getAttribute("href").includes("?")) a.href = waLink(`${S.waHello}\n\n${siteTag()}`);
+});
+
+const track = (() => {
+  const code = CONFIG.goatcounter;
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  if (!code || local) return () => {};
+  const send = (path, title, isEvent) => {
+    const q = new URLSearchParams({
+      p: path, t: title || document.title, r: isEvent ? "" : document.referrer,
+      s: `${screen.width},${screen.height},${window.devicePixelRatio || 1}`, b: "0", rnd: Math.random().toString(36).slice(2),
+    });
+    if (isEvent) q.set("e", "true");
+    const img = new Image();
+    img.referrerPolicy = "strict-origin-when-cross-origin";
+    img.src = `https://${code}.goatcounter.com/count?${q}`;
+  };
+  send(location.pathname, document.title, false);
+  return (name) => send(`${name}-${LANG}`, name, true);
+})();
+
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("a[href]");
+  if (!a) return;
+  const h = a.getAttribute("href");
+  const zone = a.classList.contains("wa-float") ? "bouton-flottant" : a.closest(".nav") ? "menu" : a.closest(".footer") ? "pied-de-page" : a.closest(".final") ? "fin-de-page" : a.closest("#reserver") ? "reservation" : "page";
+  if (h.startsWith("https://wa.me/")) track(`clic-whatsapp-${zone}`);
+  else if (h.startsWith("tel:")) track(`clic-telephone-${zone}`);
+  else if (/instagram\.com|facebook\.com|linkedin\.com|tiktok\.com/.test(h)) track(`clic-reseau-${new URL(h, location.href).hostname.replace(/^www\./, "").split(".")[0]}`);
+}, { capture: true });
 
 /* =====================================================================
    Nav: scrolled, progress, active link, mobile menu
@@ -822,6 +867,8 @@ if (finePointer && !reduceMotion) {
     d.message ? `- *${S.lMessage} :* ${d.message}` : null,
     "",
     S.confirmAsk,
+    "",
+    siteTag("réservation"),
   ].filter((l) => l !== null).join("\n");
 
   const renderRecap = () => {
@@ -891,6 +938,7 @@ if (finePointer && !reduceMotion) {
     lastMsg = message(d);
     const url = openWhatsApp(lastMsg);
     postJSON({ source: "reservation", ...d, dateISO: state.date });
+    track(`reservation-${form.type.value}`);
     $("#wzWaAgain").href = url;
     steps.forEach((el) => (el.hidden = true));
     nav.hidden = true;
@@ -1029,8 +1077,11 @@ if (finePointer && !reduceMotion) {
         profil ? `- *${S.wProfile} :* ${profil}` : null,
         "",
         S.wNotify,
+        "",
+        siteTag("liste d'attente app"),
       ].filter((l) => l !== null).join("\n");
       openWhatsApp(msg);
+      track("liste-attente-app");
       postJSON({ source: "liste-attente-app", prenom: name, contact, profil, consentement: new Date().toISOString() });
       setStatus(S.wOk, "ok");
       wl.reset();

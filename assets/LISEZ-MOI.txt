@@ -108,3 +108,18 @@ niveaux, légendes des photos). Les prix et durées restent dans CONFIG.offers.
   Analytics, Meta Pixel, etc., il faudra un bandeau de consentement.
 - Si tu actives formEndpoint (Formspree), ajoute Formspree comme destinataire dans
   la politique de confidentialité et autorise-le déjà prévu dans la CSP (connect-src).
+
+
+6) ORIGINE DES CONTACTS & STATISTIQUES
+--------------------------------------
+- Tous les messages WhatsApp envoyés depuis le site se terminent par une mention
+  [SITE · page · langue], par ex. [SITE · accueil · FR] ou [SITE · réservation · AR].
+  Dans WhatsApp, tape « [SITE » dans la recherche pour retrouver tous ces contacts.
+- Statistiques (visites + clics WhatsApp / téléphone / réseaux / réservations) :
+  1. Crée un compte gratuit sur https://www.goatcounter.com (choisis un code,
+     ex. « soufianezalik » → soufianezalik.goatcounter.com).
+  2. Mets ce code dans script.js : goatcounter: "soufianezalik",
+  3. Republie le site. Le tableau de bord est sur https://TONCODE.goatcounter.com
+  Les clics apparaissent comme « clic-whatsapp-bouton-flottant-fr »,
+  « clic-telephone-menu-ar », « reservation-domicile-en », etc.
+  Rien n'est compté quand le site tourne en local (localhost).
